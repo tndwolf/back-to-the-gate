@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="FeedFx" type="CPUParticles2D"]
+amount = 12
+emission_shape = 1
+emission_sphere_radius = 12.0
+gravity = Vector2( 0, 0 )
+radial_accel = -12.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+color = Color( 1, 0, 0, 1 )

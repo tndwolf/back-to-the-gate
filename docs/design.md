@@ -43,3 +43,7 @@ Three Skill Trees (lines), the last Skill changes the Character sprite.
 - **Artifacts**. Each level contains a Hellish Artifact that boosts a passive ability.
 - **Cameras**. If in LOS, warn close enemies/add Caution Level.
 - **Intro**. First person POV as your egg opens on a scientist and soldier, blood splatters the screen and as it fades the game start with the title.
+
+## Shortcuts
+
+- The Passages are not "real", once entered you can move freely and just go out at another end.

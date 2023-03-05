@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/test_assets.png" type="Texture" id=1]
+
+[node name="HumanModel" type="Sprite"]
+rotation = 4.71239
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 16 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+rotation = 0.862631
+color = Color( 1, 1, 1, 0.0941176 )
+polygon = PoolVector2Array( 45.1199, -3.4917, 3.4917, 45.1199, 0, 0 )

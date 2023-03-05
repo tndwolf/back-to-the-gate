@@ -8,14 +8,190 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Action",
+"language": "GDScript",
+"path": "res://actions/Action.gd"
+}, {
+"base": "Node",
+"class": "CharacterBuilder",
+"language": "GDScript",
+"path": "res://generators/CharacterBuilder.gd"
+}, {
+"base": "Resource",
+"class": "CharacterSheet",
+"language": "GDScript",
+"path": "res://entities/CharacterSheet.gd"
+}, {
+"base": "Action",
+"class": "DiveAction",
+"language": "GDScript",
+"path": "res://actions/DiveAction.gd"
+}, {
+"base": "Action",
+"class": "EmergeAction",
+"language": "GDScript",
+"path": "res://actions/EmergeAction.gd"
+}, {
+"base": "Action",
+"class": "FeedAction",
+"language": "GDScript",
+"path": "res://actions/FeedAction.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "GameEntity",
+"language": "GDScript",
+"path": "res://entities/GameEntity.gd"
+}, {
+"base": "Node",
+"class": "LabGenerator",
+"language": "GDScript",
+"path": "res://generators/LabGenerator.gd"
+}, {
+"base": "Node",
+"class": "LevelBuilder",
+"language": "GDScript",
+"path": "res://generators/LevelBuilder.gd"
+}, {
+"base": "Resource",
+"class": "LevelMap",
+"language": "GDScript",
+"path": "res://game/LevelMap.gd"
+}, {
+"base": "Action",
+"class": "MeleeAction",
+"language": "GDScript",
+"path": "res://actions/MeleeAction.gd"
+}, {
+"base": "Resource",
+"class": "Mind",
+"language": "GDScript",
+"path": "res://entities/minds/Mind.gd"
+}, {
+"base": "Action",
+"class": "MoveAction",
+"language": "GDScript",
+"path": "res://actions/MoveAction.gd"
+}, {
+"base": "Mind",
+"class": "PlayerMind",
+"language": "GDScript",
+"path": "res://entities/minds/PlayerMind.gd"
+}, {
+"base": "Action",
+"class": "PounceAction",
+"language": "GDScript",
+"path": "res://actions/PounceAction.gd"
+}, {
+"base": "Action",
+"class": "ShotAction",
+"language": "GDScript",
+"path": "res://actions/ShotAction.gd"
+} ]
+_global_script_class_icons={
+"Action": "",
+"CharacterBuilder": "",
+"CharacterSheet": "",
+"DiveAction": "",
+"EmergeAction": "",
+"FeedAction": "",
+"GameEntity": "",
+"LabGenerator": "",
+"LevelBuilder": "",
+"LevelMap": "",
+"MeleeAction": "",
+"Mind": "",
+"MoveAction": "",
+"PlayerMind": "",
+"PounceAction": "",
+"ShotAction": ""
+}
+
 [application]
 
 config/name="Back to the Gate"
+run/main_scene="res://game/playview/PlayView.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+TurnManager="*res://game/turn_manager/TurnManager.gd"
+
+[display]
+
+window/size/width=342
+window/size/height=200
+window/size/test_width=1024
+window/size/test_height=600
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="entities"
+2d_physics/layer_3="cone_of_view"
+2d_physics/layer_4="player"
 
 [physics]
 
@@ -26,4 +202,5 @@ common/enable_pause_aware_picking=true
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 environment/default_environment="res://default_env.tres"

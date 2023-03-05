@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="AbsorbFx" type="CPUParticles2D"]
+amount = 6
+lifetime = 0.4
+explosiveness = 0.79
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 8.0
+radial_accel = 48.0
+scale_amount = 2.0
+scale_amount_random = 1.0
