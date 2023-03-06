@@ -4,6 +4,9 @@ extends Mind
 
 func turn(world:LevelMap):
 	if Input.is_action_just_pressed("ui_select"):
+		if world.get_tile(owner.grid_position) == LevelMap.TileTypes.STAIRS:
+			GotoLevel.attempt(owner, {'world_view': owner.get_parent()})
+			return
 		FeedAction.attempt(owner, {'map': world})
 		return
 	if Input.is_action_just_pressed("ui_accept"):

@@ -10,26 +10,27 @@ func _ready():
 	set_map(LevelBuilder.new().set_type(LevelBuilder.LevelTypes.LAB).build())
 	player = CharacterBuilder.new().is_player().build()
 	add_child(player)
-	MoveAction.teleport(player, map.start, map)
-	var enemy = CharacterBuilder.new().model(CharacterBuilder.HumanModel.instance()).build()
-#	var enemy = CharacterBuilder.new().build()
-	add_child(enemy)
-	MoveAction.teleport(enemy, map.start + Vector2.LEFT, map)
-	TurnManager.add(player)
-	TurnManager.add(enemy)
+	GotoLevel.attempt(player, {'world_view': self})
+#	MoveAction.teleport(player, map.start, map)
+#	var enemy = CharacterBuilder.new().model(CharacterBuilder.HumanModel.instance()).build()
+#	add_child(enemy)
+#	MoveAction.teleport(enemy, map.start + Vector2.LEFT, map)
 
 
 func _process(delta):
 	TurnManager.current().mind.turn(map)
 
 
-func convert_tile(src_tile:int):
+func convert_tile(src_tile:int, up_tile:int=0):
 	match src_tile:
 		LevelMap.TileTypes.INVALID, LevelMap.TileTypes.WALL: return 0
-		LevelMap.TileTypes.DOOR: return 7
 		LevelMap.TileTypes.STAIRS: return 3
 		LevelMap.TileTypes.VENT: return 2
 		LevelMap.TileTypes.FLOOR: return 1
+		LevelMap.TileTypes.DOOR:
+			return 5 if up_tile == LevelMap.TileTypes.WALL else 4
+		LevelMap.TileTypes.OPEN_DOOR:
+			return 7 if up_tile == LevelMap.TileTypes.WALL else 6
 	return -1
 
 
@@ -43,4 +44,6 @@ func set_map(value:LevelMap) -> void:
 	for y in range(map.height()):
 		for x in range(map.width()):
 			var tile = map.get_tile(Vector2(x, y))
-			world_tiles.set_cell(x, y, convert_tile(tile))
+			var up_tile = map.get_tile(Vector2(x, y-1))
+			world_tiles.set_cell(x, y, convert_tile(tile, up_tile))
+	world_tiles.update_bitmask_region(Vector2.ZERO, map.size())

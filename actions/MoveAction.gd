@@ -10,7 +10,7 @@ static func attempt(actor:GameEntity, params:Dictionary):
 	if map == null or delta == null:
 		return
 	start_acting(actor)
-	print('Try move by %s' % delta)
+#	print('Try move by %s' % delta)
 	if try_move(actor, delta, map) == false:
 		if try_move(actor, Vector2(delta.x, 0), map) == false:
 			if !try_move(actor, Vector2(0, delta.y), map):
@@ -40,22 +40,25 @@ static func teleport(actor:GameEntity, coords:Vector2, map:LevelMap) -> void:
 	map.place_entity(actor, actor.grid_position)
 
 
+static func open_door(actor:GameEntity, end_position:Vector2, map:LevelMap):
+	var up_tile = map.get_tile(end_position + Vector2.DOWN)
+	map.set_tile(LevelMap.TileTypes.OPEN_DOOR, end_position)
+	var new_door = actor.get_parent().convert_tile(LevelMap.TileTypes.OPEN_DOOR, up_tile)
+	actor.get_parent().world_tiles.set_cellv(end_position, new_door)
+	yield(actor.get_tree().create_timer(0.2), "timeout")
+	done_acting(actor)
+
+
 static func try_move(actor:GameEntity, delta:Vector2, map:LevelMap) -> bool:
 	if delta == Vector2.ZERO:
 		done_acting(actor)
 		return true
 	var end_position = actor.grid_position + delta
 	var end_tile = map.get_tile(end_position)
+	if end_tile == LevelMap.TileTypes.DOOR:
+		open_door(actor, end_position, map)
+		return true
 	if end_tile in [LevelMap.TileTypes.WALL, LevelMap.TileTypes.INVALID]:
 		return false
-#	var targets = map.entities_at(end_position)
-#	if targets.size() != 0:
-#		var target = targets[0]
-#		free_actor(actor)
-#		if target.is_engaged:
-#			MeleeAction.attempt(actor, {'map': map, 'target': target})
-#		else:
-#			PounceAction.attempt(actor, {'map': map, 'target': target})
-#		return true
 	step(actor, delta, map)
 	return true

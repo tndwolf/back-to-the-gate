@@ -7,6 +7,7 @@ enum TileTypes {
 	FLOOR,
 	WALL,
 	DOOR,
+	OPEN_DOOR,
 	STAIRS,
 	VENT
 }
