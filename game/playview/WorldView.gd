@@ -7,14 +7,9 @@ onready var world_tiles := $WorldTiles
 
 
 func _ready():
-	set_map(LevelBuilder.new().set_type(LevelBuilder.LevelTypes.LAB).build())
 	player = CharacterBuilder.new().is_player().build()
 	add_child(player)
 	GotoLevel.attempt(player, {'world_view': self})
-#	MoveAction.teleport(player, map.start, map)
-#	var enemy = CharacterBuilder.new().model(CharacterBuilder.HumanModel.instance()).build()
-#	add_child(enemy)
-#	MoveAction.teleport(enemy, map.start + Vector2.LEFT, map)
 
 
 func _process(delta):

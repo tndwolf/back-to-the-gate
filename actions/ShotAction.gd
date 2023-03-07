@@ -8,6 +8,7 @@ const BleedFx = preload("res://fx/BleedFx.tscn")
 static func _add_bleed_fx(target:GameEntity):
 	var fx = BleedFx.instance()
 	fx.one_shot = true
+	fx.modulate = Color.yellow
 	target.add_child(fx)
 	yield(target.get_tree().create_timer(0.4), "timeout")
 	target.remove_child(fx)

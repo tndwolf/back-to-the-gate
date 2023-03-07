@@ -16,6 +16,7 @@ enum TileTypes {
 var area := Rect2()
 var entities = {}
 var end := Vector2.ZERO
+var rooms = []
 var start := Vector2.ZERO
 var tiles = []
 

@@ -80,6 +80,7 @@ func _build_lab(map:LevelMap):
 				map.set_tile(LevelMap.TileTypes.WALL, coords)
 	map.start = rand_point(rooms[0], 1)
 	map.end = rand_point(rooms[-1], 1)
+	map.rooms = rooms
 	map.set_tile(LevelMap.TileTypes.STAIRS, map.end)
 	return map
 
@@ -143,6 +144,6 @@ static func rand_point(within:Rect2, border_size:int = 0) -> Vector2:
 	return Vector2(x0 + randi() % dx, y0 + randi() % dy)
 
 
-func set_type(value:int) -> LevelBuilder:
+func with_type(value:int) -> LevelBuilder:
 	_level_type = value
 	return self

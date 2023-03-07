@@ -2,6 +2,9 @@ class_name PlayerMind
 extends Mind
 
 
+var level := 0 # it will increase to one at the first level
+
+
 func turn(world:LevelMap):
 	if Input.is_action_just_pressed("ui_select"):
 		if world.get_tile(owner.grid_position) == LevelMap.TileTypes.STAIRS:

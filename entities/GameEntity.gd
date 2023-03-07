@@ -6,10 +6,12 @@ signal dead(entity)
 signal turn_completed(entity, action_points_used)
 
 
-enum UnitType {
+enum Type {
 	PLAYER,
 	SCIENTIST,
-	MILITARY
+	MILITARY,
+	ARTIFACT,
+	FURNITURE
 }
 
 
@@ -46,7 +48,7 @@ var model:Sprite setget set_model, get_model
 var player_in_cone := false
 var status:int = Status.ALIVE setget set_status, get_status
 var target = null
-var unit_type = UnitType.SCIENTIST
+var unit_type = Type.SCIENTIST
 var weapon = Weapon.UNHARMED
 
 onready var move_tween:Tween = $MoveTween

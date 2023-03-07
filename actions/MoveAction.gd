@@ -19,6 +19,10 @@ static func attempt(actor:GameEntity, params:Dictionary):
 		done_acting(actor)
 
 
+static func _is_to_animate(actor:GameEntity, map:LevelMap) -> bool:
+	return actor.is_player
+
+
 static func step(actor:GameEntity, delta:Vector2, map:LevelMap) -> void:
 	var end_position = actor.grid_position + delta
 	var start_position = actor.position
@@ -27,9 +31,12 @@ static func step(actor:GameEntity, delta:Vector2, map:LevelMap) -> void:
 	actor.grid_position = end_position
 	map.place_entity(actor, actor.grid_position)
 	var final_position = end_position * LevelBuilder.CELLS_SIZE + 0.5 * LevelBuilder.CELLS_SIZE
-	actor.move_tween.interpolate_property(actor, 'position', start_position, final_position, 0.3)
-	actor.move_tween.start()
-	yield(actor.move_tween, "tween_all_completed")
+	if _is_to_animate(actor, map):
+		actor.move_tween.interpolate_property(actor, 'position', start_position, final_position, 0.3)
+		actor.move_tween.start()
+		yield(actor.move_tween, "tween_all_completed")
+	else:
+		actor.position = final_position
 	done_acting(actor)
 
 
