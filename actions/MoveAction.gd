@@ -4,7 +4,9 @@ extends Action
 
 static func attempt(actor:GameEntity, params:Dictionary):
 	if !can_act(actor):
+#		print('Move: no can act ' + actor.name)
 		return
+#	print('Move: ' + actor.name)
 	var map = params.get('map') as LevelMap
 	var delta = params.get('delta') as Vector2
 	if map == null or delta == null:
@@ -20,6 +22,7 @@ static func attempt(actor:GameEntity, params:Dictionary):
 
 
 static func _is_to_animate(actor:GameEntity, map:LevelMap) -> bool:
+	return true
 	return actor.is_player
 
 

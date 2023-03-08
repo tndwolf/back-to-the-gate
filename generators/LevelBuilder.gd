@@ -87,10 +87,16 @@ func _build_lab(map:LevelMap):
 
 static func _surrounded(map:LevelMap, coords:Vector2) -> bool:
 	var walls := 0
-	for delta in DIRECTIONS:
+	var h_walls := 0
+	for delta in [Vector2.LEFT, Vector2.RIGHT]:
 		if map.get_tile(coords + delta) == LevelMap.TileTypes.WALL:
 			walls += 1
-	return walls > 2
+	for delta in [Vector2.UP, Vector2.DOWN]:
+		if map.get_tile(coords + delta) == LevelMap.TileTypes.WALL:
+			h_walls += 1
+	if walls == 1 and h_walls == 1:
+		return true
+	return walls + h_walls > 2
 
 
 static func _connect(map:LevelMap, rooms:Array):

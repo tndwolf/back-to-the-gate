@@ -13,7 +13,11 @@ func _ready():
 
 
 func _process(delta):
-	TurnManager.current().mind.turn(map)
+	var actor = TurnManager.current()
+	actor.mind.turn(map)
+	while !actor.is_player:
+		actor = TurnManager.current()
+		actor.mind.turn(map)
 
 
 func convert_tile(src_tile:int, up_tile:int=0):

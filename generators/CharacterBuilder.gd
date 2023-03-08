@@ -30,6 +30,7 @@ func build() -> GameEntity:
 		view_cone.monitoring = false
 		res.weapon = GameEntity.Weapon.CLAWS
 		res.health = 10
+		res.name = 'Player'
 	else:
 		res.find_node('Light').queue_free()
 		res.mind = load("res://entities/minds/ArtificialMind.gd").new()

@@ -29,12 +29,14 @@ func current() -> GameEntity:
 
 
 func _on_dead(entity:GameEntity):
+#	print(entity.name + ' dead')
 	_actors.erase(entity)
 	return
 
 
 func _on_turn_completed(entity:GameEntity, action_points_used:int):
 	entity.initiative += action_points_used
+#	print(entity.name + ' over')
 	_refresh()
 
 

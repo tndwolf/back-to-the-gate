@@ -21,10 +21,12 @@ static func _attack(actor:GameEntity, target:GameEntity):
 	actor.move_tween.interpolate_property(actor, 'position', to_position, from_position, 0.1, 0, 0, 0.1)
 	actor.move_tween.start()
 	_add_bleed_fx(target)
-	yield(actor.get_tree().create_timer(0.5), "timeout")
+	yield(actor.move_tween, "tween_all_completed")
+#	yield(actor.get_tree().create_timer(0.5), "timeout")
 	target.health -= _calc_damage(actor, target)
 	if target.health <= 0:
 		target.status = GameEntity.Status.DEAD
+	print('Done attacking')
 	done_acting(actor)
 
 
@@ -35,8 +37,10 @@ static func attempt(actor:GameEntity, params:Dictionary):
 	var target = params.get('target') as GameEntity
 	if map == null or target == null:
 		return
+	print('Start attacking')
 	start_acting(actor)
 	_attack(actor, target)
+	print('Exit attacking')
 
 
 static func _calc_damage(actor:GameEntity, target:GameEntity) -> int :
