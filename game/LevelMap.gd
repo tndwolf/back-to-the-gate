@@ -16,6 +16,7 @@ enum TileTypes {
 var area := Rect2()
 var entities = {}
 var end := Vector2.ZERO
+var occluders = {}
 var rooms = []
 var start := Vector2.ZERO
 var tiles = []
@@ -65,9 +66,24 @@ func place_entity(entity, at:Vector2):
 	entities[at] = [entity]
 
 
+func place_occluder(occluder, at:Vector2):
+	occluders[at] = occluder
+
+
 func remove_entity(entity, from:Vector2):
 	if from in entities:
 		entities[from].erase(entity)
+
+
+func remove_occluder(at:Vector2):
+	occluders[at].queue_free()
+	occluders.erase(at)
+
+
+func remove_occluders():
+	for occluder in occluders.values():
+		occluder.queue_free()
+	occluders.clear()
 
 
 func set_tile(tile:int, at:Vector2) -> void:

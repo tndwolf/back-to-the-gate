@@ -29,13 +29,17 @@ static func _is_to_animate(actor:GameEntity, map:LevelMap) -> bool:
 static func step(actor:GameEntity, delta:Vector2, map:LevelMap) -> void:
 	var end_position = actor.grid_position + delta
 	var start_position = actor.position
-	actor.rotation = actor.grid_position.angle_to_point(end_position) + PI
+#	actor.rotation = actor.grid_position.angle_to_point(end_position) + PI
+	actor.set_look_direction(actor.grid_position.angle_to_point(end_position))
 	map.remove_entity(actor, actor.grid_position)
 	actor.grid_position = end_position
 	map.place_entity(actor, actor.grid_position)
 	var final_position = end_position * LevelBuilder.CELLS_SIZE + 0.5 * LevelBuilder.CELLS_SIZE
 	if _is_to_animate(actor, map):
-		actor.move_tween.interpolate_property(actor, 'position', start_position, final_position, 0.3)
+		var ani = actor.model.get_node('AnimationPlayer')
+		if ani:
+			ani.play('Step')
+		actor.move_tween.interpolate_property(actor, 'position', start_position, final_position, 0.4)
 		actor.move_tween.start()
 		yield(actor.move_tween, "tween_all_completed")
 	else:
@@ -55,6 +59,7 @@ static func open_door(actor:GameEntity, end_position:Vector2, map:LevelMap):
 	map.set_tile(LevelMap.TileTypes.OPEN_DOOR, end_position)
 	var new_door = actor.get_parent().convert_tile(LevelMap.TileTypes.OPEN_DOOR, up_tile)
 	actor.get_parent().world_tiles.set_cellv(end_position, new_door)
+	map.remove_occluder(end_position)
 	yield(actor.get_tree().create_timer(0.2), "timeout")
 	done_acting(actor)
 

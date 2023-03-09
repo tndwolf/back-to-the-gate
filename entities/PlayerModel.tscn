@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 63 ]
+"values": [ 127 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 76 ]
+"values": [ 124 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 60 ]
+"values": [ 124 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -76,10 +76,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 61, 62 ]
+"values": [ 125, 126 ]
 }
 
-[node name="HumanModel" type="Sprite"]
+[node name="PlayerModel" type="Sprite"]
 texture = ExtResource( 1 )
 hframes = 16
 vframes = 16
@@ -87,6 +87,7 @@ frame = 60
 region_rect = Rect2( 48, 0, 16, 16 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 color = Color( 1, 1, 1, 0.0941176 )
 polygon = PoolVector2Array( 32, -32, 32, 32, 0, 0 )
 

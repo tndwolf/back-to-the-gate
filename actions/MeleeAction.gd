@@ -14,9 +14,13 @@ static func _add_bleed_fx(target:GameEntity):
 
 
 static func _attack(actor:GameEntity, target:GameEntity):
-	actor.rotation = actor.position.angle_to_point(target.position) + PI
+#	actor.rotation = actor.position.angle_to_point(target.position) + PI
+	actor.set_look_direction(actor.position.angle_to_point(target.position))
 	var from_position = actor.position
 	var to_position = lerp(actor.position, target.position, 0.5)
+	var ani = actor.model.get_node('AnimationPlayer')
+	if ani:
+		ani.play('Attack')
 	actor.move_tween.interpolate_property(actor, 'position', from_position, to_position, 0.1)
 	actor.move_tween.interpolate_property(actor, 'position', to_position, from_position, 0.1, 0, 0, 0.1)
 	actor.move_tween.start()
@@ -26,6 +30,9 @@ static func _attack(actor:GameEntity, target:GameEntity):
 	target.health -= _calc_damage(actor, target)
 	if target.health <= 0:
 		target.status = GameEntity.Status.DEAD
+		ani = target.model.get_node('AnimationPlayer')
+		if ani:
+			ani.play('Attack')
 	print('Done attacking')
 	done_acting(actor)
 

@@ -2,11 +2,23 @@ class_name GotoLevel
 extends Action
 
 
+static func _add_artifact(world_view, map:LevelMap, level:int, level_type:int) -> void:
+	var room = map.rooms[randi () % map.rooms.size()]
+	var entity = CharacterBuilder.new().from_template(GameEntity.Type.ARTIFACT).build()
+	MoveAction.teleport(entity, _get_empty_position(map, room), map)
+	world_view.add_child(entity)
+
+
 static func attempt(actor:GameEntity, params:Dictionary):
 	var world_view = params.get('world_view')
+	var old_map = params.get('old_map')
+	if old_map:
+		old_map.remove_occluders()
 	if world_view == null or !actor.is_player:
 		return
 	for entity in actor.get_tree().get_nodes_in_group(CharacterBuilder.ENEMIES_GROUP):
+		entity.queue_free()
+	for entity in actor.get_tree().get_nodes_in_group(CharacterBuilder.OBJECTS_GROUP):
 		entity.queue_free()
 	var level = actor.mind.level + 1
 	actor.mind.level = level
@@ -17,6 +29,7 @@ static func attempt(actor:GameEntity, params:Dictionary):
 	MoveAction.teleport(actor, map.start, map)
 	TurnManager.clear()
 	TurnManager.add(actor)
+	_add_artifact(world_view, map, level, level_type)
 	_populate(world_view, map, level, level_type)
 	done_acting(actor)
 

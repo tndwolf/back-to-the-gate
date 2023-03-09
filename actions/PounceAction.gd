@@ -12,6 +12,9 @@ static func attempt(actor:GameEntity, params:Dictionary):
 	start_acting(actor)
 	step(actor, target.grid_position, map)
 	target.status = GameEntity.Status.DEAD
+	var ani = target.model.get_node('AnimationPlayer')
+	if ani:
+		ani.play('Death')
 	done_acting(actor)
 
 
@@ -30,4 +33,7 @@ static func step(actor:GameEntity, end_position:Vector2, map:LevelMap) -> void:
 	var final_position = end_position * LevelBuilder.CELLS_SIZE + 0.5 * LevelBuilder.CELLS_SIZE
 	actor.move_tween.interpolate_property(actor, 'position', start_position, final_position, 0.3)
 	actor.move_tween.start()
+	var ani = actor.model.get_node('AnimationPlayer')
+	if ani:
+		ani.play('Step')
 	yield(actor.move_tween, "tween_all_completed")

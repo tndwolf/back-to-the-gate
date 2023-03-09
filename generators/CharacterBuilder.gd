@@ -2,12 +2,15 @@ class_name CharacterBuilder
 extends Node
 
 
-const ARTIFACT_GROUP := 'artifact'
+const OBJECTS_GROUP := 'objects'
 const ENEMIES_GROUP := 'enemies'
 const PLAYER_GROUP := 'player'
 
 
+const ArtifactModel = preload("res://entities/ArtifactModel.tscn")
 const HumanModel = preload("res://entities/HumanModel.tscn")
+const MilitaryModel = preload("res://entities/MilitaryModel.tscn")
+const PlayerModel = preload("res://entities/PlayerModel.tscn")
 const PackedEntity = preload("res://entities/GameEntity.tscn")
 
 
@@ -33,9 +36,13 @@ func build() -> GameEntity:
 		res.name = 'Player'
 	else:
 		res.find_node('Light').queue_free()
-		res.mind = load("res://entities/minds/ArtificialMind.gd").new()
 		res.unit_type = _type
-		res.add_to_group(ENEMIES_GROUP)
+		match _type:
+			GameEntity.Type.MILITARY, GameEntity.Type.SCIENTIST:
+				res.mind = load("res://entities/minds/ArtificialMind.gd").new()
+				res.add_to_group(ENEMIES_GROUP)
+			_:
+				res.add_to_group(OBJECTS_GROUP)
 	if _model:
 		res.model = _model
 	return res as GameEntity
@@ -44,16 +51,18 @@ func build() -> GameEntity:
 func from_template(type:int) -> CharacterBuilder:
 	_type = type
 	match type:
-		GameEntity.Type.MILITARY:
-			var model = HumanModel.instance()
-			model.modulate = Color.green
+		GameEntity.Type.ARTIFACT:
+			var model = ArtifactModel.instance()
+			model.frame += randi() % 4
 			with_model(model)
+		GameEntity.Type.MILITARY: with_model(MilitaryModel.instance())
 		GameEntity.Type.SCIENTIST: with_model(HumanModel.instance())
 	return self
 
 
 func is_player() -> CharacterBuilder:
 	_is_player = true
+	with_model(PlayerModel.instance())
 	return self
 
 

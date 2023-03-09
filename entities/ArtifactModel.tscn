@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 63 ]
+"values": [ 127 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -30,11 +30,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 76 ]
+"values": [ 124 ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "Idle"
+length = 3.2
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -45,7 +47,19 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 60 ]
+"values": [ 44 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9, 2.4, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -1, 0 ), Vector2( 1, 0 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -62,6 +76,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 60 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "Step"
@@ -76,10 +102,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 61, 62 ]
+"values": [ 125, 126 ]
 }
 
-[node name="HumanModel" type="Sprite"]
+[node name="ArtifactModel" type="Sprite"]
 texture = ExtResource( 1 )
 hframes = 16
 vframes = 16
@@ -87,10 +113,12 @@ frame = 60
 region_rect = Rect2( 48, 0, 16, 16 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 color = Color( 1, 1, 1, 0.0941176 )
 polygon = PoolVector2Array( 32, -32, 32, 32, 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
 anims/Attack = SubResource( 1 )
 anims/Death = SubResource( 2 )
 anims/Idle = SubResource( 3 )
@@ -98,3 +126,15 @@ anims/RESET = SubResource( 4 )
 anims/Step = SubResource( 5 )
 next/Attack = "Idle"
 next/Step = "Idle"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emission_shape = 1
+emission_sphere_radius = 6.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 4.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+color = Color( 1, 0, 0, 0.752941 )
+hue_variation = 0.17
+hue_variation_random = 1.0

@@ -23,8 +23,8 @@ static func attempt(actor:GameEntity, params:Dictionary):
 
 static func _drain(actor:GameEntity, target:GameEntity):
 	target.status = GameEntity.Status.DRAINED
-	actor.blood += 1
-	actor.health = 10
+#	actor.blood += 1
+	actor.health = clamp(actor.health + 1, 1, 10)
 	var fx = FeedFx.instance()
 	fx.one_shot = true
 	actor.add_child(fx)

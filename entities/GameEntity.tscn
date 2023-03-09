@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/GameEntity.gd" type="Script" id=1]
 [ext_resource path="res://assets/test_assets.png" type="Texture" id=2]
+[ext_resource path="res://assets/tile_sheet.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.0
@@ -42,6 +43,7 @@ polygon = PoolVector2Array( 0, 0, -32, -40, 32, -40 )
 [node name="ViewRay" type="RayCast2D" parent="."]
 cast_to = Vector2( 0, 16 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="Light" type="Light2D" parent="."]
 position = Vector2( 1.52588e-05, -1.52588e-05 )
@@ -52,6 +54,14 @@ range_z_max = 3
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 1 )
 shadow_buffer_size = 256
+
+[node name="Callout" type="Sprite" parent="."]
+visible = false
+z_index = 1
+texture = ExtResource( 3 )
+hframes = 16
+vframes = 16
+frame = 156
 
 [connection signal="body_entered" from="ViewCone" to="." method="_on_ViewCone_body_entered"]
 [connection signal="body_exited" from="ViewCone" to="." method="_on_ViewCone_body_exited"]

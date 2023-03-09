@@ -8,7 +8,7 @@ var level := 0 # it will increase to one at the first level
 func turn(world:LevelMap):
 	if Input.is_action_just_pressed("ui_select"):
 		if world.get_tile(owner.grid_position) == LevelMap.TileTypes.STAIRS:
-			GotoLevel.attempt(owner, {'world_view': owner.get_parent()})
+			GotoLevel.attempt(owner, {'world_view': owner.get_parent(), 'old_map': world})
 			return
 		FeedAction.attempt(owner, {'map': world})
 		return

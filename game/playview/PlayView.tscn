@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game/playview/new_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://game/playview/WorldView.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.502793, 1 )
+colors = PoolColorArray( 0, 0, 0, 0.627451, 0, 0, 0, 1, 0, 0, 0, 0.627451 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 256
 
 [node name="PlayView" type="Node2D"]
 
@@ -15,3 +23,26 @@ format = 1
 tile_data = PoolIntArray( 1, 0, 0, 2, 1, 0, 3, 0, 8, 4, 0, 10, 5, 0, 11, 6, 1, 0, 65537, 0, 65536, 65538, 1, 0, 65539, 0, 65544, 65540, 0, 131081, 65541, 0, 131083, 65542, 1, 0, 65543, 0, 8, 65544, 0, 11, 131073, 0, 131072, 131074, 1, 0, 131075, 0, 196616, 131076, 0, 196617, 131077, 0, 196619, 131078, 1, 0, 131079, 0, 196616, 131080, 0, 196619, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 196613, 1, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1, 0, 196617, 0, 0, 262145, 0, 196608, 262146, 1, 0, 262147, 0, 196609, 262148, 0, 196610, 262149, 0, 196611, 262150, 1, 0, 262152, 0, 196609, 262153, 0, 65538, 262154, 0, 196610, 262155, 0, 196610, 262156, 0, 3, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 0, 65536, 327690, 1, 0, 327691, 1, 0, 327692, 0, 65536, 393218, 1, 0, 393219, 1, 0, 393220, 0, 8, 393221, 0, 11, 393224, 0, 1, 393225, 0, 131074, 393226, 0, 196610, 393227, 0, 196610, 393228, 0, 65538, 393229, 0, 196611, 458756, 0, 196616, 458757, 0, 4, 458758, 0, 196610, 458759, 0, 2, 458760, 0, 131075, 458764, 0, 131072, 524293, 0, 65536, 524295, 0, 65536, 589828, 0, 8, 589829, 0, 196612, 589830, 0, 196610, 589831, 0, 196615, 589832, 0, 11, 655364, 0, 196616, 655365, 0, 196619, 655367, 0, 196616, 655368, 0, 196619 )
 
 [node name="Ui" type="CanvasLayer" parent="."]
+
+[node name="Dead UI" type="Control" parent="Ui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Ui/Dead UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 202.0
+margin_right = -141.0
+margin_bottom = 342.0
+rect_rotation = -90.0
+texture = SubResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="Ui/Dead UI"]
+modulate = Color( 1, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "You Died"
+align = 1
+valign = 1

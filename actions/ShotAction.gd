@@ -15,12 +15,19 @@ static func _add_bleed_fx(target:GameEntity):
 
 
 static func _attack(actor:GameEntity, target:GameEntity):
-	actor.rotation = actor.position.angle_to_point(target.position) + PI
+#	actor.rotation = actor.position.angle_to_point(target.position) + PI
+	actor.set_look_direction(actor.position.angle_to_point(target.position))
+	var ani = actor.model.get_node('AnimationPlayer')
+	if ani:
+		ani.play('Attack')
 	_add_bleed_fx(target)
 	yield(actor.get_tree().create_timer(0.5), "timeout")
 	target.health -= _calc_damage(actor, target)
 	if target.health <= 0:
 		target.status = GameEntity.Status.DEAD
+		ani = target.model.get_node('AnimationPlayer')
+		if ani:
+			ani.play('Death')
 	done_acting(actor)
 
 
