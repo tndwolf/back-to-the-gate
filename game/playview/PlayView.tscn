@@ -1,7 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game/playview/new_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://game/playview/WorldView.gd" type="Script" id=2]
+[ext_resource path="res://ui/SkillBtn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://skills/camouflage.tres" type="Resource" id=4]
+[ext_resource path="res://skills/stalker.tres" type="Resource" id=5]
+[ext_resource path="res://skills/blink.tres" type="Resource" id=6]
+[ext_resource path="res://game/playview/LevelUpUi.gd" type="Script" id=7]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.502793, 1 )
@@ -10,6 +15,9 @@ colors = PoolColorArray( 0, 0, 0, 0.627451, 0, 0, 0, 1, 0, 0, 0, 0.627451 )
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 width = 256
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.286275, 0, 0.419608, 1 )
 
 [node name="PlayView" type="Node2D"]
 
@@ -24,12 +32,12 @@ tile_data = PoolIntArray( 1, 0, 0, 2, 1, 0, 3, 0, 8, 4, 0, 10, 5, 0, 11, 6, 1, 0
 
 [node name="Ui" type="CanvasLayer" parent="."]
 
-[node name="Dead UI" type="Control" parent="Ui"]
+[node name="DeadUi" type="Control" parent="Ui"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="TextureRect" type="TextureRect" parent="Ui/Dead UI"]
+[node name="TextureRect" type="TextureRect" parent="Ui/DeadUi"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 202.0
@@ -39,10 +47,92 @@ rect_rotation = -90.0
 texture = SubResource( 2 )
 expand = true
 
-[node name="Label" type="Label" parent="Ui/Dead UI"]
+[node name="Label" type="Label" parent="Ui/DeadUi"]
 modulate = Color( 1, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "You Died"
 align = 1
 valign = 1
+
+[node name="PlayUi" type="Control" parent="Ui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LevelUpUi" type="Control" parent="Ui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+
+[node name="Panel" type="Panel" parent="Ui/LevelUpUi"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/LevelUpUi/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TitleLabel" type="Label" parent="Ui/LevelUpUi/Panel/VBoxContainer"]
+margin_right = 342.0
+margin_bottom = 7.0
+text = "Use TOKENS to improve your skills, select an icon to show its description"
+align = 1
+autowrap = true
+
+[node name="StealthContainer" type="HBoxContainer" parent="Ui/LevelUpUi/Panel/VBoxContainer"]
+modulate = Color( 0.317647, 0.258824, 1, 1 )
+margin_top = 11.0
+margin_right = 342.0
+margin_bottom = 11.0
+
+[node name="Pad1" type="Control" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer"]
+margin_right = 161.0
+size_flags_horizontal = 3
+
+[node name="StalkerBtn" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 165.0
+margin_right = 165.0
+margin_bottom = 0.0
+skill = ExtResource( 5 )
+
+[node name="ArrowIcon" type="TextureRect" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer"]
+margin_left = 169.0
+margin_right = 169.0
+
+[node name="CamouflageBtn" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 173.0
+margin_right = 173.0
+margin_bottom = 0.0
+skill = ExtResource( 4 )
+
+[node name="BlinkBtn" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 177.0
+margin_right = 177.0
+margin_bottom = 0.0
+skill = ExtResource( 6 )
+
+[node name="Pad2" type="Control" parent="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer"]
+margin_left = 181.0
+margin_right = 342.0
+size_flags_horizontal = 3
+
+[node name="DescriptionLabel" type="Label" parent="Ui/LevelUpUi/Panel/VBoxContainer"]
+margin_top = 15.0
+margin_right = 342.0
+margin_bottom = 22.0
+text = "Select a skill to see its description"
+align = 1
+autowrap = true
+
+[connection signal="pressed" from="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer/StalkerBtn" to="Ui/LevelUpUi" method="_on_StalkerBtn_pressed"]
+[connection signal="pressed" from="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer/CamouflageBtn" to="Ui/LevelUpUi" method="_on_CamouflageBtn_pressed"]
+[connection signal="pressed" from="Ui/LevelUpUi/Panel/VBoxContainer/StealthContainer/BlinkBtn" to="Ui/LevelUpUi" method="_on_BlinkBtn_pressed"]
